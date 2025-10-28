@@ -535,11 +535,35 @@ curve(pnorm(x, mean = mu, sd = sigma), col = "red", lwd = 2, add = TRUE)
     2.  Let $X \sim \mathscr{N}(\mu,\sigma^2)$ with $\mu = teamidnumber$ and $\sigma^{2} = 2\times teamidnumber+7$. Simulate realizations $x_1,x_2,\dots,x_{100}$ of $X$ and $y_1,y_2,\dots,y_{100}$ of $Y := \frac{1}{X}$ to calculate the values of $\frac{1}{\overline{\textbf{X}}}$ and $\overline{\textbf{Y}}$. Comment on the received results;
 
         ```{r}
-        mu <- 0 #change this!
-        sigma <- 1 #change this
+        mu <- 12 # team id
+        sigma <- 31 # 2 * team id number + 7
+        sd = sqrt(sigma)
         N <- 100
 
-        # YOUR CODE HERE
+
+        x = rnorm(N, mean = mu, sd = sd) # Simulate realization for X
+        y = 1/x # realization for Y
+
+        mean_x <- mean(x)  # X̄
+        mean_y <- mean(y)  # Ȳ
+        inverted_mean_x <- 1 / mean_x
+
+        #show results
+        print("Sample mean X̄ " )
+        print(mean_x)
+
+        print("Inverted mean 1/X")
+        print(inverted_mean_x)
+
+        print("Sample mean Ȳ = mean(1/X)")
+        print(mean_y)
+
+        print("Difference between inverted mean [1/X̄] and  sample mean Ȳ [mean(1/X)] ")
+
+        print(abs(inverted_mean_x - mean_y))
+
+        print("We can see that difference is not equal to zero, so the equality 1/X̄ = [mean(1/X)] is not true")
+
         ```
 
     3.  Let $X$ and $Y$ be exponentially distributed r.v.'s with parameter $\lambda = 2$. Set $Z := \log{X} + 5$. Plot the Quantile-Quantile plot and scatterplot of $X$ and $Y$. Plot the Quantile-Quantile plot and scatterplot of $X$ and $Z$. Explain the results. Comment on the difference of relations between the pairs of random variables. Which pair of r.v.'s is dependent and which one is similar?

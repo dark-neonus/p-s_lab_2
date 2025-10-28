@@ -569,7 +569,65 @@ curve(pnorm(x, mean = mu, sd = sigma), col = "red", lwd = 2, add = TRUE)
     3.  Let $X$ and $Y$ be exponentially distributed r.v.'s with parameter $\lambda = 2$. Set $Z := \log{X} + 5$. Plot the Quantile-Quantile plot and scatterplot of $X$ and $Y$. Plot the Quantile-Quantile plot and scatterplot of $X$ and $Z$. Explain the results. Comment on the difference of relations between the pairs of random variables. Which pair of r.v.'s is dependent and which one is similar?
 
         ```{r}
-        # YOUR CODE HERE
+        lambda <- 2
+        n <- 100
+
+        #generate a cdf for X and Y and set Z
+        X <- rexp(n, rate = 2)
+        Y <- rexp(n, rate = 2)
+        Z = log(X) + 5  # Z is dependent on X
+
+        # Q-Q plot for X and Y
+        qqplot(X, Y, main = "Q-Q plot for X and Y",
+            xlab = "X quantiles",
+            ylab = "Y quantiles",
+            col = "pink")
+        abline(0, 1, col = "blue")
+
+        # scatterplot for X and Y
+        plot(X, Y, main = "scatterplot for X and Y",
+            xlab = "X",
+            ylab = "Y",
+            col = "pink")
+
+        # Q-Q plot for X and Z
+        qqplot(X, Z, main = "Q-Q Plot for X and Z",
+            xlab = "X quantiles",
+            ylab = "Z quantiles",
+            col = "purple")
+        abline(0, 1, col = "blue")
+        
+        # scatterplot for X and Z
+        plot(X, Z, main  = "scatterplot for X and Z",
+            xlab = "X",
+            ylab = "Z",
+            col = "purple")
+
+        cat("Summary:
+
+        For X and Y in Q-Q plot :
+        
+        X and Y have same distribution ~ exp(2), so the quantiles coincide
+        that form a plot where points overlap,
+        and align along the line y = x
+        
+        For X and Y in scatterplot :
+        
+        It looks like graph with random points
+        because there is no functional relationship between X and Y
+
+        For X and Z in Q-Q plot :
+        
+        X has an exponential distribution when Z not
+        
+        For X and Y in scatterplot :
+        
+        We can saw that they are dependent and as result 
+        points form a logarithmic curve
+        
+    Which pair of r.v.'s is dependent and which one is similar?
+        
+        X and Z are dependent and X and Y - similar")
         ```
 
     ------------------------------------------------------------------------

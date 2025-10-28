@@ -649,13 +649,58 @@ curve(pnorm(x, mean = mu, sd = sigma), col = "red", lwd = 2, add = TRUE)
     2.  What are the expected value and variance of X? Simulate realizations $x_1,x_2,\dots,x_{100}$ of $X$ to calculate the values of sample mean $\overline{\mathbf{X}}$ and sample variance $s^2 = \frac{\sum_{i=1}^{n}{(x_i - \overline{x})^{2}}}{n-1}$. Comment on the results;
 
         ```{r}
-        # YOUR CODE HERE
+        # Expected value if Binomial r.v. = n*p
+        # Variance of Binomial r.v. = n*p*(1-p)
+        n <- 3
+        p <- 1/2
+        expected_value_X <- n*p
+        variance_X <- n*p*(1-p)
+        N <- 100  # amoumt of values for simulation
+
+
+        sample_for_simulation_X <- rbinom(N, size = n, prob = p) #generate sample for X 
+
+        sample_mean_X <- mean(sample_for_simulation_X)
+
+        squared_deviations_X <- (sample_for_simulation_X - sample_mean_X)^2
+        sample_variance_X <- sum(squared_deviations_X) / (N- 1)
+
+
+        cat("Results:
+            Expected value of X",expected_value_X,
+            "Variance of X" , variance_X,
+        
+            "Sample mean of X", sample_mean_X,
+            "Sample variance of X", sample_variance_X)
         ```
 
     3.  What are the expected value and variance of Y? Simulate realizations $y_1,y_2,\dots,y_{100}$ of $Y$ to calculate the values of sample mean $\overline{\mathbf{Y}}$ and sample variance $s^2 = \frac{\sum_{i=1}^{n}{(y_i - \overline{y})^{2}}}{n-1}$. Comment on the results;
 
         ```{r}
-        # YOUR CODE HERE
+        #Y = 0.5 *X - 1
+        # to calculate expected value of Y we apply linearity of expectation
+        # E(Y) = E(0.5*X - 1) =  E(0.5*X) - E(1) = 0.5 * E(X) - 1
+
+        expected_value_Y <- (0.5 * expected_value_X) - 1
+
+        # and to calculate variance of Y we also apply its properties
+        # Var(0.5*X - 1) = Var(0.5*X) = 0.5^2*Var(X) = 0.25*Var(X)
+
+        variance_Y <- 0.25 * variance_X
+
+        #generate sample for Y
+        sample_for_simulation_Y = 0.5 * sample_for_simulation_X -1
+        sample_mean_Y <- mean(sample_for_simulation_Y)
+
+        squared_deviations_Y <- (sample_for_simulation_Y - sample_mean_Y)^2
+        sample_variance_Y <- sum(squared_deviations_Y) / (N- 1)
+
+        cat("Results:
+            Expected value of Y",expected_value_Y,
+            "Variance of Y" , variance_Y,
+        
+            "Sample mean of Y", sample_mean_Y,
+            "Sample variance of Y", sample_variance_Y)
         ```
 
 **Do not forget to include several sentences summarizing your work and the conclusions you have made!**

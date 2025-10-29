@@ -492,10 +492,45 @@ Our simulation verified that the CLT prediction achieves approximately the desir
 #### First, generate samples an sample means:
 
 ```{r}
-nu1 <- 1  # change this!
-K <- 1e3
-n <- 5
-sample_means <- colMeans(matrix(rexp(n*K, rate = nu1), nrow=n))
+teamid <- 12
+v <- teamid + 10
+nu1 <- 1/v  #µ = 1/lambda
+sigma_squared <- 1/(v^2)
+K <- 10000
+
+for (n in c(5,10,50)){
+
+  sample_means <- colMeans(matrix(rexp(n*K, rate = v), nrow=n)) #generate vctor of samples
+  Fs <- ecdf(sample_means) #emprirical ecdf from sample
+  
+  mu <- nu1       # expectation of sample mean is just µ
+  sigma <- sqrt(sigma_squared) / sqrt(n)   # sd
+  
+  cat("Parameters of the standard normal approximation", mu, sigma, "\n")
+  
+  xlims <- c(mu - 4 * sigma, mu + 4 * sigma)
+  Fs <- ecdf(sample_means)
+  plot(Fs, 
+       xlim = xlims, 
+       col = "pink",
+       lwd = 2,
+       main = "Comparison of ecdf and cdf")
+  curve(pnorm(x, mean = mu, sd = sigma), col = "green", add = TRUE)
+  
+  # take a grid of 200 points tj within 3σ of µ
+  t_min <- mu - 3 * sigma  
+  t_max <- mu + 3 * sigma
+  
+  t_points <- seq(t_min, t_max, length.out = 200)
+  #count values of Fs_t, Fz_t 
+  Fs_t <- Fs(t_points)
+  Fz_t <- pnorm(t_points, mean = mu, sd = sigma)
+  
+  max_difference <- max(abs(Fs_t - Fz_t))
+  
+  cat("Max difference", max_difference, "\n")
+  cat("We can see that with larger n (5,10,50) we have better approximation, max diference is less with each iteration,and graffics are almost overlap\n")
+}
 ```
 
 #### Next, calculate the parameters of the standard normal approximation

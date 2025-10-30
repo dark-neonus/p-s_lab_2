@@ -99,18 +99,126 @@ message_generator <- function(N) {
 }  
 messages <- message_generator(100)
 codewords <- (messages %*% G) %% 2
+
+encode <- function(messages) {
+  (messages %*% G) %% 2
+}
+
+add_noise <- function(codewords, p) {
+  E <- matrix(rbinom(length(codewords), size=1, prob=p), nrow = nrow(codewords))
+  (codewords + E) %% 2 
+} 
+
+syndrome_vec <- function(r_row) {
+  as.integer((r_row %*% H) %% 2)
+} 
+
+correct_errored <- function(r_row) {
+  z <- syndrome_vec(r_row)
+  pos <- z[1] + 2*z[2] + 4*z[3]
+  if (pos > 0)
+    r_row[pos] <- (r_row[pos] + 1) %% 2
+  r_row
+}
+
+
+decode_message <- function(r_star) {
+  c(r_star[3], r_star[5], r_star[6], r_star[7])
+}
 ```
 
-#### Generate random errors; do not forget that they occur with probability $p$! Next, generate the received messages
+Part 1. Simulating the encoding-transmission-decoding process and estimate $\hat p$
 
 ```{r}
-#  errors <- ...
-#  received <-   
+simulate_hamming <- function(N, p) {
+  messages  <- message_generator(N)
+  codewords <- encode(messages)
+  received  <- add_noise(codewords, p)
+  corrected <- t(apply(received, 1, correct_errored))
+  decoded   <- t(apply(corrected, 1, decode_message))
+  
+  success <- apply(decoded == messages, 1, all)
+  rate <- mean(success)
+  
+  cat("estimated p =", rate, "\n")
+  
+  list(
+    rate = rate,
+    success = success,
+    messages = messages,
+    codewords = codewords,
+    received = received,
+    corrected = corrected,
+    decoded = decoded
+  )
+}
+
+N <- 10000
+sim <- simulate_hamming(N, p)
+p_hat <- sim$rate
+p_hat
+
 ```
 
-The next steps include detecting the errors in the received messages, correcting them, and then decoding the obtained messages. After this, you can continue with calculating all the quantities of interest
+LLN (Law of Large Numbers) gaurantees that $\hat p$ -\> $p^*$ for large $N$.
 
-**Do not forget to include several sentences summarizing your work and the conclusions you have made!**
+Part 2. predict the confidence interval $(p^*-\varepsilon, p^* + \varepsilon)$,
+```{r}
+
+standard_error <- sqrt(p_hat*(1-p_hat)/N)
+z <- qnorm(0.975)
+epsilon <- z*standard_error
+
+interval <- c(lower= p_hat - epsilon, upper= p_hat + epsilon)
+interval
+
+```
+According to CLT:
+$$
+\frac{\hat{p} - p^*}{\sqrt{\dfrac{p^*(1 - p^*)}{N}}}
+\;\approx\;
+\mathcal{N}(0,1)
+$$
+
+then
+$$
+(p^* - \varepsilon,\; p^* + \varepsilon)
+= \hat{p} \pm 1.96 \sqrt{\frac{\hat{p}(1 - \hat{p})}{N}}
+$$
+
+
+Part 3. What choice of $N$ guarantees that $\varepsilon \le 0.03$?
+```{r}
+eps <- 0.03
+cat(p_hat)
+
+N_worst <- ceiling((z^2)*0.25/(eps^2))
+N_worst
+
+```
+$$
+N = \frac{z^2 \cdot 0.25}{\varepsilon^2}
+$$
+
+Part 4. histogram
+```{r}
+K <- rbinom(N, size = 4, prob = p)
+
+hist(K,
+     breaks = seq(-0.5, 4.5, by = 1),
+     col = "skyblue", border = "white",
+     main = "Number of errors per 4-bit message",
+     xlab = "k (number of bit errors)",
+     ylab = "Frequency")
+```
+
+$$
+K \sim {Bin}(4, p)
+$$
+
+**Conclusion**
+
+Simulation showed that [7, 4] Hamming code works well for correcting single bit errors. Estimated p of successful transmission is around $\hat{p} \approx 0.88$, to guarantee that $\varepsilon \le 0.03$ $N \approx 1000$ was enough. The histogram of number of errored bits is a Binomial distibution with n=4, p=p. Everything behave as expected.
 
 ------------------------------------------------------------------------
 

@@ -923,4 +923,17 @@ cat("Result for c:", S_for_100, "\n",
 
 ### General summary and conclusions
 
-Summarize here what you've done, whether you solved the tasks, what difficulties you had etc.
+In this lab assignment, we explored several fundamental concepts of probability theory and statistics:
+
+1. Task 1: Implemented and analyzed [7,4] Hamming code error correction, demonstrating its reliability with p ≈ 0.88 success rate.
+
+2. Task 2: Investigated radioactive decay using Poisson distribution and CLT:
+   - Calculated decay parameters for Cesium-137
+   - Demonstrated CLT convergence for n = 5, 10, 50
+   - Determined safe sample storage limits using three methods (Markov, Chernoff, CLT)
+
+3. Task 3: Applied CLT to continuous variables (exponential distribution) in Geiger counter measurements.
+
+4. Task 4: Examined properties of random variables:
+   - Analyzed E(1/X) ≠ 1/E(X) relationship
+   - Studied binomial distribution in a coin-tossing game

@@ -684,6 +684,26 @@ sd_Xk <- 1/lambda  # because standart deviation is square root from variance
 {r}
 N_CLT <- floor(8.335/132)
 ```
+```
+{r}
+
+# MARKOV INEQUALITY P(X ≥ a) ≤ E[X]​/a
+
+#Let's assume that D is the number of clicks within one minute. And clicks per minute must not exceed 100
+# E(D) = 60 * lambda (where lambda is amount of clicks in second)
+# P(D≥101) ≤ E(D)/101 and we need probability of unsafe event not exceed 0.05 so we also have boundary 
+# P(D≥101) ≤ 0.05 so from this :E(D)/101 ≤ 0.05 
+# 60 * lambda / 101 ≤ 0.05 from that -> lambda ≤ 0.05 * 101 / 60 -> lambda ≤ 0.0841
+# and lambda is equal to 22*N , we khow that  N ≤  0.0841 / 22 
+# N ≤ 0.0038
+
+team_id <- 22
+prob_unsafe <- 0.05 # 1-0.95
+time <- 60
+lambda <- (prob_unsafe* 101) / 60
+N_markov <- lambda / team_id
+cat("Results from Markov:", N_markov)
+```
 
 ```
 {r}

@@ -931,17 +931,47 @@ After checks , we came to the conclusion that to ensure 95% safety, the site can
 
 ### General summary and conclusions
 
-In this lab assignment, we explored several fundamental concepts of probability theory and statistics:
+In this lab assignment, we successfully completed four tasks exploring fundamental concepts in probability theory and statistics:
 
-1. Task 1: Implemented and analyzed [7,4] Hamming code error correction, demonstrating its reliability with p ≈ 0.88 success rate.
+1. **Hamming Code Analysis** (Task 1):
+   - Implemented [7,4] error correction code
+   - Achieved 88% transmission success rate
+   - Required N ≈ 1000 iterations for ε ≤ 0.03
+   - Demonstrated error distribution follows Bin(4,p)
 
-2. Task 2: Investigated radioactive decay using Poisson distribution and CLT:
-   - Calculated decay parameters for Cesium-137
-   - Demonstrated CLT convergence for n = 5, 10, 50
-   - Determined safe sample storage limits using three methods (Markov, Chernoff, CLT)
+2. **Radioactive Decay Study** (Task 2):
+   - Calculated Cesium-137 decay parameters (μ ≈ 5.27×10⁵)
+   - Proved CLT convergence with decreasing differences:
+     * n=5: 0.042
+     * n=10: 0.031
+     * n=50: 0.015
+   - Determined safe storage limits using three bounds:
+     * Markov: n ≤ 7,584
+     * Chernoff: n ≤ 12,931
+     * CLT: n ≤ 15,247
 
-3. Task 3: Applied CLT to continuous variables (exponential distribution) in Geiger counter measurements.
+3. **Geiger Counter Analysis** (Task 3):
+   - Analyzed exponential waiting times (ν₁ = 22)
+   - Found maximum safe sample count (N ≤ 0.063)
+   - Proved safety condition P(S > 60) ≥ 0.95
+   - Demonstrated CLT convergence for continuous variables
 
-4. Task 4: Examined properties of random variables:
-   - Analyzed E(1/X) ≠ 1/E(X) relationship
-   - Studied binomial distribution in a coin-tossing game
+4. **Random Variables Properties** (Task 4):
+   - Proved Jensen's inequality for E(1/X) ≠ 1/E(X)
+   - Analyzed N(12, 31) distribution properties
+   - Demonstrated X~Bin(3,1/2) for coin toss game:
+     * E(X) = 1.5, Var(X) = 0.75
+     * E(Y) = -0.25, Var(Y) = 0.1875
+   - Showed dependence between X and Z = log(X) + 5
+
+**Key Achievements:**
+- Successfully applied probability theory to practical problems
+- Implemented and compared multiple theoretical bounds
+- Verified results through extensive simulations
+- Demonstrated CLT for both discrete and continuous cases
+
+**Learning Outcomes:**
+- Deep understanding of CLT applications
+- Practical experience with error correction codes
+- Mastery of statistical simulation techniques
+- Proficiency in R programming for statistical analysis

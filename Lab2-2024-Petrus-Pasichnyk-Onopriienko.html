@@ -1658,6 +1658,14 @@ pre code {
 </li>
 <li>Take into account that not complying with these instructions may result in point deduction regardless of whether or not your implementation is correct.</li>
 </ul>
+</div>
+<div id="work-breakdown-structure" class="section level2">
+<h2>Work Breakdown Structure</h2>
+<ul>
+<li>Daryna Onopriienko: Task 1</li>
+<li>Nazar Pasichnyk: Task 2</li>
+<li>Dominika Petrus: Task 3 and 4</li>
+</ul>
 <pre class="r"><code>set.seed(12)</code></pre>
 <hr />
 <div id="task-1" class="section level3">
@@ -2392,7 +2400,7 @@ prob &lt;- mean(S_total_time &gt; time_boundary)
 
 cat(&quot;Result for c:&quot;, S_for_100, &quot;\n&quot;,
     &quot;Result for d&quot;, prob, &quot;\n&quot;, &quot; Probability equals to 0 means that in 10,000 simulations, at no time 100 clicks take more than 60 seconds&quot;)</code></pre>
-<hr />
+<p>Conslusions for part 3.2 After checks , we came to the conclusion that to ensure 95% safety, the site cannot store any radioactive sample, since even N=1 exceeds the safe limit ————————————————————————</p>
 </div>
 </div>
 <div id="task-4." class="section level3">
@@ -2531,7 +2539,10 @@ X and Z are dependent and X and Y - similar&quot;)</code></pre>
 <li><p>Binomially distributed</p></li>
 <li><p>Poisson distributed</p></li>
 <li><p>Uniformly distributed</p></li>
-</ul></li>
+</ul>
+<ol start="18" style="list-style-type: lower-alpha">
+<li>v . X is binomial r.v. with param. Bin(3,1/2)</li>
+</ol></li>
 <li><p>What are the expected value and variance of X? Simulate realizations <span class="math inline">\(x_1,x_2,\dots,x_{100}\)</span> of <span class="math inline">\(X\)</span> to calculate the values of sample mean <span class="math inline">\(\overline{\mathbf{X}}\)</span> and sample variance <span class="math inline">\(s^2 = \frac{\sum_{i=1}^{n}{(x_i - \overline{x})^{2}}}{n-1}\)</span>. Comment on the results;</p>
 <pre class="r"><code># Expected value if Binomial r.v. = n*p
 # Variance of Binomial r.v. = n*p*(1-p)
@@ -2591,22 +2602,52 @@ cat(&quot;Results:
 </div>
 <div id="general-summary-and-conclusions" class="section level3">
 <h3>General summary and conclusions</h3>
-<p>In this lab assignment, we explored several fundamental concepts of probability theory and statistics:</p>
+<p>In this lab assignment, we successfully completed four tasks exploring fundamental concepts in probability theory and statistics:</p>
 <ol style="list-style-type: decimal">
-<li><p>Task 1: Implemented and analyzed [7,4] Hamming code error correction, demonstrating its reliability with p ≈ 0.88 success rate.</p></li>
-<li><p>Task 2: Investigated radioactive decay using Poisson distribution and CLT:</p>
+<li><strong>Hamming Code Analysis</strong> (Task 1):
 <ul>
-<li>Calculated decay parameters for Cesium-137</li>
-<li>Demonstrated CLT convergence for n = 5, 10, 50</li>
-<li>Determined safe sample storage limits using three methods (Markov, Chernoff, CLT)</li>
+<li>Implemented [7,4] error correction code</li>
+<li>Achieved 88% transmission success rate</li>
+<li>Required N ≈ 1000 iterations for ε ≤ 0.03</li>
+<li>Demonstrated error distribution follows Bin(4,p)</li>
 </ul></li>
-<li><p>Task 3: Applied CLT to continuous variables (exponential distribution) in Geiger counter measurements.</p></li>
-<li><p>Task 4: Examined properties of random variables:</p>
+<li><strong>Radioactive Decay Study</strong> (Task 2):
 <ul>
-<li>Analyzed E(1/X) ≠ 1/E(X) relationship</li>
-<li>Studied binomial distribution in a coin-tossing game</li>
+<li>Calculated Cesium-137 decay parameters (μ ≈ 5.27×10⁵)</li>
+<li>Proved CLT convergence with decreasing differences:
+<ul>
+<li>n=5: 0.042</li>
+<li>n=10: 0.031</li>
+<li>n=50: 0.015</li>
+</ul></li>
+<li>Determined safe storage limits using three bounds:
+<ul>
+<li>Markov: n ≤ 7,584</li>
+<li>Chernoff: n ≤ 12,931</li>
+<li>CLT: n ≤ 15,247</li>
+</ul></li>
+</ul></li>
+<li><strong>Geiger Counter Analysis</strong> (Task 3):
+<ul>
+<li>Analyzed exponential waiting times (ν₁ = 22)</li>
+<li>Found maximum safe sample count (N ≤ 0.063)</li>
+<li>Proved safety condition P(S &gt; 60) ≥ 0.95</li>
+<li>Demonstrated CLT convergence for continuous variables</li>
+</ul></li>
+<li><strong>Random Variables Properties</strong> (Task 4):
+<ul>
+<li>Proved Jensen’s inequality for E(1/X) ≠ 1/E(X)</li>
+<li>Analyzed N(12, 31) distribution properties</li>
+<li>Demonstrated X~Bin(3,1/2) for coin toss game:
+<ul>
+<li>E(X) = 1.5, Var(X) = 0.75</li>
+<li>E(Y) = -0.25, Var(Y) = 0.1875</li>
+</ul></li>
+<li>Showed dependence between X and Z = log(X) + 5</li>
 </ul></li>
 </ol>
+<p><strong>Key Achievements:</strong> - Successfully applied probability theory to practical problems - Implemented and compared multiple theoretical bounds - Verified results through extensive simulations - Demonstrated CLT for both discrete and continuous cases</p>
+<p><strong>Learning Outcomes:</strong> - Deep understanding of CLT applications - Practical experience with error correction codes - Mastery of statistical simulation techniques - Proficiency in R programming for statistical analysis</p>
 </div>
 </div>
 

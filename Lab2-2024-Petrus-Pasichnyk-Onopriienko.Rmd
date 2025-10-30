@@ -860,6 +860,7 @@ After checks , we came to the conclusion that to ensure 95% safety, the site can
         -   Poisson distributed
 
         -   Uniformly distributed
+        r. v . X is binomial r.v. with param. Bin(3,1/2)
 
     2.  What are the expected value and variance of X? Simulate realizations $x_1,x_2,\dots,x_{100}$ of $X$ to calculate the values of sample mean $\overline{\mathbf{X}}$ and sample variance $s^2 = \frac{\sum_{i=1}^{n}{(x_i - \overline{x})^{2}}}{n-1}$. Comment on the results;
 

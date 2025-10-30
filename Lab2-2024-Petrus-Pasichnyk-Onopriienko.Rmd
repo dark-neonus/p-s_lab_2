@@ -735,6 +735,8 @@ cat("Result for c:", S_for_100, "\n",
     "Result for d", prob, "\n", " Probability equals to 0 means that in 10,000 simulations, at no time 100 clicks take more than 60 seconds")
 ```
 
+Conslusions for part 3.2
+After checks , we came to the conclusion that to ensure 95% safety, the site cannot store any radioactive sample, since even N=1 exceeds the safe limit
 ------------------------------------------------------------------------
 
 ### Task 4.

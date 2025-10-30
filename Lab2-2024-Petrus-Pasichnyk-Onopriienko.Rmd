@@ -20,6 +20,11 @@ output:
 -   The **team id number** referred to in tasks is the **two-digit** ordinal number of your team on the list. Include the line **set.seed(team id number)** at the beginning of your code to make your calculations reproducible. Also observe that the answers **do** depend on this number!\
 -   Take into account that not complying with these instructions may result in point deduction regardless of whether or not your implementation is correct.
 
+## Work Breakdown Structure
+- Daryna Onopriienko: Task 1
+- Nazar Pasichnyk: Task 2
+- Dominika Petrus: Task 3 and 4
+
 ```{r}
 set.seed(12)
 ```

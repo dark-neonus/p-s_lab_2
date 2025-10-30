@@ -639,9 +639,81 @@ for (n in c(5,10,50)){
 }
 ```
 
-**Next, proceed with all the remaining steps**
+```{r}
+#Part 2
 
-**Do not forget to include several sentences summarizing your work and the conclusions you have made!**
+#(a) express the event of interest in terms of the r.v. S := X1 + · · · + X100;
+
+# We need to find P(S>60) ≥ 0.95
+# Because if S is greater then 60 the 100's click happened after 1 minute. So , during one minute ≤ 99 clicks happened 
+# Each Xk has exponential distribution with rate v, and v = N * v1(rate for distribution when   N=1) = 22N
+
+
+#(b) obtain the theoretical bounds on Central Limit Theorem
+
+lambda <- 22 * N
+mu <- 1/lambda      # is equal to expectation of Xk
+sd_Xk <- 1/lambda  # because standart deviation is square root from variance
+
+# we will use standartized sum and formula Zn = (S - mu*n) / sd_Xk * √n
+# mu is 1/lambda and sigma is standart deviation, also 1/lambda and √n is equal to √100 = 10
+```
+
+(a) P(S\>60) ≥ 0.95
+
+(b) at first let's calculate first part:\
+    P (S - 100/lambda)/10/lambda \> (60 - 100/lambda)/(10/lambda)\
+    \
+    P(Z \> (60 - 100/lambda)/(10/lambda)) = P(Z \> (60 - 100/22N)/(10/22N)) =\
+    \
+    = P(Z \> (60\*22N - 100)/10) = P(Z \> (6\*22N - 10)) = P(Z \> (132\*N - 10)) =\
+    \
+    = 1 - P(Z ≤ (132\*N - 10))
+
+(c) P(S\>60) ≥ 0.95\
+    1 - P(Z ≤ (132\*N - 10)) ≥ 0.95\
+    1 - P(Z ≤ (132\*N - 10)) ≥ 0.95\
+    P(Z ≤ (132\*N - 10)) ≤ 0.05\
+    Ф(132\*N - 10) ≤ Ф(0.05)\
+    132\*N - 10 ≤ -1.645 (from the table)\
+    132\*N ≤ 8.335\
+    N ≤ 8.335/132\
+    N ≤ 0.063
+
+```
+{r}
+N_CLT <- floor(8.335/132)
+```
+
+```
+{r}
+# For c and d we use N = 1, because previous result shows that N is equal 0, it means that different N will give not correct results, so in simulation we use 1 (the closest non-negative integer to 0 is 1)  and show that it will give a result that violates the safety condition
+
+
+#simulate the realization... of the  S = X1 + ... + X100
+
+v1 <- 22
+n <- 100
+N <- 1
+v <- v1 * N
+K <- 1000  # amount of simulation repiting
+
+# part c
+x_realizations <- rexp(n, rate = v)  #r{distr} generates a sample
+S_for_100 <- sum(x_realizations)
+
+#part d :  repeat this K times to get the sample s = (s1, . . . , sK) of total times until the 100th click
+
+#generate matrix with samples and calculate the 
+S <- matrix(rexp(n * K, rate = v), nrow = n)
+S_total_time <- colSums(S)
+
+time_boundary <- 60
+prob <- mean(S_total_time > time_boundary)
+
+cat("Result for c:", S_for_100, "\n",
+    "Result for d", prob, "\n", " Probability equals to 0 means that in 10,000 simulations, at no time 100 clicks take more than 60 seconds")
+```
 
 ------------------------------------------------------------------------
 

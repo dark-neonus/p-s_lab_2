@@ -616,6 +616,9 @@ for (n in c(5,10,50)){
   
   cat("Parameters of the standard normal approximation", mu, sigma, "\n")
   
+  # Define xlims for the plot
+  xlims <- c(mu - 3*sigma, mu + 3*sigma)
+  
   Fs <- ecdf(sample_means)
   plot(Fs, 
        xlim = xlims, 
@@ -915,8 +918,6 @@ cat("Result for c:", S_for_100, "\n",
             "Sample mean of Y", sample_mean_Y,
             "Sample variance of Y", sample_variance_Y)
         ```
-
-**Do not forget to include several sentences summarizing your work and the conclusions you have made!**
 
 ------------------------------------------------------------------------
 
